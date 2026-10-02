@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Card Flip Game</title>
+  <script src="https://res.cdn.office.net/teams-js/2.22.0/js/MicrosoftTeams.min.js"></script>
   <style>
     :root {
       --bg: #1e1e24;
@@ -147,6 +148,15 @@
   </div>
 
   <script>
+    // Initialize Teams SDK if in Teams
+    if (window.microsoftTeams) {
+      microsoftTeams.app.initialize().then(() => {
+        microsoftTeams.app.notifySuccess();
+      }).catch(err => {
+        console.log("Teams SDK init fallback (running outside teams or standalone):", err);
+      });
+    }
+
     // Deck: 0 (1 copy), 1 (1 copy), 2 (2 copies), ..., 12 (12 copies) = 79 cards total
     function buildDeck() {
       let d = [0];
