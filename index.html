@@ -230,8 +230,23 @@
         document.getElementById("risk").innerText = "100%";
       } else {
         hand.push(card);
-        document.getElementById("btn-stay").disabled = false;
-        updateStats();
+        if (hand.length === 7) {
+          gameOver = true;
+          const baseScore = hand.reduce((a, b) => a + b, 0);
+          const finalScore = baseScore + 15;
+          document.getElementById("score").innerText = finalScore;
+          document.getElementById("card-count").innerText = "7";
+          document.getElementById("risk").innerText = "0%";
+          const banner = document.getElementById("banner");
+          banner.innerText = "🔥 FLIP 7! You collected 7 unique cards! Bonus +15 points! Total: " + finalScore;
+          banner.className = "banner banked";
+          document.getElementById("btn-draw").style.display = "none";
+          document.getElementById("btn-stay").style.display = "none";
+          document.getElementById("btn-again").style.display = "inline-block";
+        } else {
+          document.getElementById("btn-stay").disabled = false;
+          updateStats();
+        }
       }
     }
 
